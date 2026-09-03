@@ -1,0 +1,6 @@
+{
+  "name": "ISP Billing & Customer Management System",
+  "description": "Enterprise-grade ISP billing, customer management, package renewals, thermal receipt printing, expenses, staff salaries, and financial analytics platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
