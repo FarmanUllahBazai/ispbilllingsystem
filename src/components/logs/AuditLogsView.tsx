@@ -27,12 +27,12 @@ export const AuditLogsView: React.FC = () => {
 
   const filteredLogs = useMemo(() => {
     return logs.filter(l => {
-      const search = searchTerm.toLowerCase();
+      const search = (searchTerm || '').toLowerCase();
       return (
         !searchTerm ||
-        l.userName.toLowerCase().includes(search) ||
-        l.action.toLowerCase().includes(search) ||
-        l.entityType.toLowerCase().includes(search) ||
+        (l.userName || '').toLowerCase().includes(search) ||
+        (l.action || '').toLowerCase().includes(search) ||
+        (l.entityType || '').toLowerCase().includes(search) ||
         (l.details && l.details.toLowerCase().includes(search))
       );
     });

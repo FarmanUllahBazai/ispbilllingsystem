@@ -31,11 +31,11 @@ export const PaymentsListView: React.FC<PaymentsListViewProps> = ({
 
   const filteredPayments = useMemo(() => {
     return (payments || []).filter(p => {
-      const search = searchTerm.toLowerCase();
+      const search = (searchTerm || '').toLowerCase();
       const matchesSearch =
         !searchTerm ||
-        p.receiptNumber.toLowerCase().includes(search) ||
-        p.customerName.toLowerCase().includes(search) ||
+        (p.receiptNumber || '').toLowerCase().includes(search) ||
+        (p.customerName || '').toLowerCase().includes(search) ||
         (p.subscriberId && p.subscriberId.toLowerCase().includes(search)) ||
         (p.referenceNumber && p.referenceNumber.toLowerCase().includes(search));
 

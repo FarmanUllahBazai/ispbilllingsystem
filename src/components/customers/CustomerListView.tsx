@@ -64,15 +64,15 @@ export const CustomerListView: React.FC<CustomerListViewProps> = ({
   const filteredCustomers = useMemo(() => {
     return (customers || []).filter(c => {
       // Search
-      const search = searchTerm.toLowerCase();
+      const search = (searchTerm || '').toLowerCase();
       const matchesSearch =
         !searchTerm ||
-        c.name.toLowerCase().includes(search) ||
-        c.subscriberId.toLowerCase().includes(search) ||
-        c.contactNumber.toLowerCase().includes(search) ||
+        (c.name || '').toLowerCase().includes(search) ||
+        (c.subscriberId || '').toLowerCase().includes(search) ||
+        (c.contactNumber && c.contactNumber.toLowerCase().includes(search)) ||
         (c.fatherOrCompanyName && c.fatherOrCompanyName.toLowerCase().includes(search)) ||
-        c.address.toLowerCase().includes(search) ||
-        c.cityArea.toLowerCase().includes(search) ||
+        (c.address && c.address.toLowerCase().includes(search)) ||
+        (c.cityArea && c.cityArea.toLowerCase().includes(search)) ||
         (c.cnic && c.cnic.toLowerCase().includes(search));
 
       // Status
@@ -211,7 +211,7 @@ export const CustomerListView: React.FC<CustomerListViewProps> = ({
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
                       <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center font-bold text-blue-700 shrink-0 text-xs">
-                        {c.name.charAt(0).toUpperCase()}
+                        {(c.name || 'C').charAt(0).toUpperCase()}
                       </div>
                       <div className="min-w-0">
                         <button
@@ -359,7 +359,7 @@ export const CustomerListView: React.FC<CustomerListViewProps> = ({
                       <td className="p-3.5 pl-4">
                         <div className="flex items-center gap-2.5">
                           <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center font-bold text-blue-700 shrink-0">
-                            {c.name.charAt(0).toUpperCase()}
+                            {(c.name || 'C').charAt(0).toUpperCase()}
                           </div>
                           <div>
                             <button

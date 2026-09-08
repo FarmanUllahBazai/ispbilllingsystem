@@ -108,12 +108,21 @@ export const PaySalaryModal: React.FC<PaySalaryModalProps> = ({
             onChange={e => setStaffId(e.target.value)}
             className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs focus:border-blue-600 focus:outline-none shadow-xs"
           >
-            {staffList.map(s => (
-              <option key={s.id} value={s.id}>
-                {s.name} ({s.designation}) - Basic: {formatCurrency(s.basicSalary)}
-              </option>
-            ))}
+            {staffList.length === 0 ? (
+              <option value="">-- No staff members added yet (Add staff first) --</option>
+            ) : (
+              staffList.map(s => (
+                <option key={s.id} value={s.id}>
+                  {s.name} ({s.designation}) - Basic: {formatCurrency(s.basicSalary)}
+                </option>
+              ))
+            )}
           </select>
+          {staffList.length === 0 && (
+            <p className="text-[11px] text-amber-600 mt-1">
+              Notice: No staff members found. Please register staff in &quot;Staff &amp; Payroll&quot; first.
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-3">

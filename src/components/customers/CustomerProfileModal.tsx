@@ -100,7 +100,7 @@ export const CustomerProfileModal: React.FC<CustomerProfileModalProps> = ({
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-base shadow-xs">
-              {customer.name.charAt(0).toUpperCase()}
+              {(customer.name || 'C').charAt(0).toUpperCase()}
             </div>
             <div>
               <div className="flex items-center gap-2">

@@ -145,12 +145,12 @@ export const EmployeeManagementView: React.FC = () => {
 
   // Filtered employees
   const filteredUsers = users.filter(u => {
-    const q = searchQuery.toLowerCase().trim();
+    const q = (searchQuery || '').toLowerCase().trim();
     const matchesSearch =
       !q ||
-      u.name.toLowerCase().includes(q) ||
-      u.username.toLowerCase().includes(q) ||
-      u.email.toLowerCase().includes(q) ||
+      (u.name || '').toLowerCase().includes(q) ||
+      (u.username || '').toLowerCase().includes(q) ||
+      (u.email || '').toLowerCase().includes(q) ||
       (u.employeeId && u.employeeId.toLowerCase().includes(q)) ||
       (u.jobTitle && u.jobTitle.toLowerCase().includes(q));
 

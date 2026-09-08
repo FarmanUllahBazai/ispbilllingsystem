@@ -267,11 +267,11 @@ apiRouter.get('/customers', authenticate, requirePermission('view_customers'), (
     if (search && typeof search === 'string') {
       const q = search.toLowerCase().trim();
       customers = customers.filter(c =>
-        c.name.toLowerCase().includes(q) ||
-        c.contactNumber.includes(q) ||
-        c.subscriberId.toLowerCase().includes(q) ||
-        c.id.toLowerCase().includes(q) ||
-        c.address.toLowerCase().includes(q) ||
+        (c.name || '').toLowerCase().includes(q) ||
+        (c.contactNumber && c.contactNumber.includes(q)) ||
+        (c.subscriberId || '').toLowerCase().includes(q) ||
+        (c.id || '').toLowerCase().includes(q) ||
+        (c.address || '').toLowerCase().includes(q) ||
         (c.cnic && c.cnic.includes(q))
       );
     }
@@ -543,9 +543,9 @@ apiRouter.get('/invoices', authenticate, requirePermission('view_billing'), (req
     if (search && typeof search === 'string') {
       const q = search.toLowerCase().trim();
       invoices = invoices.filter(inv =>
-        inv.invoiceNumber.toLowerCase().includes(q) ||
-        inv.customerName.toLowerCase().includes(q) ||
-        inv.subscriberId.toLowerCase().includes(q)
+        (inv.invoiceNumber || '').toLowerCase().includes(q) ||
+        (inv.customerName || '').toLowerCase().includes(q) ||
+        (inv.subscriberId || '').toLowerCase().includes(q)
       );
     }
 
@@ -619,9 +619,9 @@ apiRouter.get('/payments', authenticate, requirePermission('view_payments'), (re
     if (search && typeof search === 'string') {
       const q = search.toLowerCase().trim();
       payments = payments.filter(p =>
-        p.receiptNumber.toLowerCase().includes(q) ||
-        p.customerName.toLowerCase().includes(q) ||
-        p.subscriberId.toLowerCase().includes(q) ||
+        (p.receiptNumber || '').toLowerCase().includes(q) ||
+        (p.customerName || '').toLowerCase().includes(q) ||
+        (p.subscriberId || '').toLowerCase().includes(q) ||
         (p.referenceNumber && p.referenceNumber.toLowerCase().includes(q))
       );
     }
@@ -1333,9 +1333,9 @@ apiRouter.get('/audit-logs', authenticate, requirePermission('view_audit_logs'),
     if (search && typeof search === 'string') {
       const q = search.toLowerCase().trim();
       logs = logs.filter(l =>
-        l.description.toLowerCase().includes(q) ||
-        l.userName.toLowerCase().includes(q) ||
-        l.action.toLowerCase().includes(q)
+        (l.description || '').toLowerCase().includes(q) ||
+        (l.userName || '').toLowerCase().includes(q) ||
+        (l.action || '').toLowerCase().includes(q)
       );
     }
 
@@ -1413,6 +1413,19 @@ apiRouter.post('/settings/restore', authenticate, requirePermission('manage_back
     res.json({ message: 'Database restored successfully from backup.' });
   } catch (error: any) {
     res.status(400).json({ error: error.message || 'Failed to restore database.' });
+  }
+});
+
+apiRouter.post('/settings/clear-data', authenticate, requireSuperAdmin, (req: AuthenticatedRequest, res: Response) => {
+  try {
+    dbService.clearAllData({
+      id: req.user!.id,
+      name: req.user!.name,
+      role: req.user!.roleName,
+    });
+    res.json({ message: 'All operational data (customers, packages, invoices, payments, expenses, staff, payroll) cleared.' });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to clear data.' });
   }
 });
 

@@ -36,7 +36,7 @@ export function formatDateTime(dateString?: string | null): string {
   }
 }
 
-export function getPaymentStatusBadge(status: string): { bg: string; text: string; label: string } {
+export function getPaymentStatusBadge(status?: string | null): { bg: string; text: string; label: string } {
   switch (status?.toLowerCase()) {
     case 'paid':
       return { bg: 'bg-emerald-50 border-emerald-200', text: 'text-emerald-700', label: 'PAID' };
@@ -51,7 +51,7 @@ export function getPaymentStatusBadge(status: string): { bg: string; text: strin
   }
 }
 
-export function getAccountStatusBadge(status: string): { bg: string; text: string; label: string } {
+export function getAccountStatusBadge(status?: string | null): { bg: string; text: string; label: string } {
   switch (status?.toLowerCase()) {
     case 'active':
       return { bg: 'bg-emerald-50 border-emerald-200', text: 'text-emerald-700', label: 'Active' };

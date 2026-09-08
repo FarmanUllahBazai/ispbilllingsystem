@@ -1346,16 +1346,16 @@ class DatabaseService {
       permissions: SYSTEM_PERMISSIONS,
       roles: DEFAULT_ROLES,
       users: DEFAULT_USERS,
-      packages: DEFAULT_PACKAGES,
-      customers: sampleCustomers,
-      invoices: sampleInvoices,
-      payments: samplePayments,
-      packageRenewals: sampleRenewals,
+      packages: [],
+      customers: [],
+      invoices: [],
+      payments: [],
+      packageRenewals: [],
       expenseCategories: DEFAULT_EXPENSE_CATEGORIES,
-      expenses: sampleExpenses,
-      staff: DEFAULT_STAFF,
-      salaryPayments: sampleSalaries,
-      auditLogs: sampleAuditLogs,
+      expenses: [],
+      staff: [],
+      salaryPayments: [],
+      auditLogs: [],
       lastBackupDate: new Date().toISOString(),
     };
 
@@ -3211,6 +3211,31 @@ class DatabaseService {
       description: `Restored entire database from backup file ${filename}.`,
     });
 
+    return true;
+  }
+
+  public clearAllData(user: { id: string; name: string; role: string }): boolean {
+    const db = this.getDatabase();
+    db.packages = [];
+    db.customers = [];
+    db.invoices = [];
+    db.payments = [];
+    db.packageRenewals = [];
+    db.expenses = [];
+    db.staff = [];
+    db.salaryPayments = [];
+    db.auditLogs = [];
+    this.saveDatabase();
+
+    this.logAudit({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'CLEAR_DATABASE',
+      entityType: 'database',
+      entityId: 'ALL',
+      description: 'Cleared all existing test records (customers, packages, invoices, payments, expenses, staff, payroll) for testing.',
+    });
     return true;
   }
 

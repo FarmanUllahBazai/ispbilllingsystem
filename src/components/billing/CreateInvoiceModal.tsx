@@ -123,12 +123,21 @@ export const CreateInvoiceModal: React.FC<CreateInvoiceModalProps> = ({
               onChange={e => setCustomerId(e.target.value)}
               className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shadow-xs"
             >
-              {customers.map(c => (
-                <option key={c.id} value={c.id}>
-                  {c.name} ({c.subscriberId})
-                </option>
-              ))}
+              {customers.length === 0 ? (
+                <option value="">-- No customers registered yet --</option>
+              ) : (
+                customers.map(c => (
+                  <option key={c.id} value={c.id}>
+                    {c.name} ({c.subscriberId})
+                  </option>
+                ))
+              )}
             </select>
+            {customers.length === 0 && (
+              <p className="text-[11px] text-amber-600 mt-1">
+                Notice: No registered customers found. Please add a customer first.
+              </p>
+            )}
           </div>
 
           <div>

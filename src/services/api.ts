@@ -418,4 +418,10 @@ export const api = {
       method: 'POST',
       headers: getAuthHeader(),
     }).then(res => handleResponse<any>(res)),
+
+  clearAllData: () =>
+    fetch(`${BASE_URL}/settings/clear-data`, {
+      method: 'POST',
+      headers: getAuthHeader(),
+    }).then(res => handleResponse<any>(res)),
 };

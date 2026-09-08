@@ -59,11 +59,13 @@ export const PackagesListView: React.FC<PackagesListViewProps> = ({
   });
 
   const filteredPackages = packageStats.filter(pkg => {
+    const searchLower = (search || '').toLowerCase();
     const matchesSearch =
-      pkg.name.toLowerCase().includes(search.toLowerCase()) ||
-      pkg.speed.toLowerCase().includes(search.toLowerCase()) ||
-      (pkg.description && pkg.description.toLowerCase().includes(search.toLowerCase())) ||
-      (pkg.badgeText && pkg.badgeText.toLowerCase().includes(search.toLowerCase()));
+      !search ||
+      (pkg.name || '').toLowerCase().includes(searchLower) ||
+      (pkg.speed || '').toLowerCase().includes(searchLower) ||
+      (pkg.description && pkg.description.toLowerCase().includes(searchLower)) ||
+      (pkg.badgeText && pkg.badgeText.toLowerCase().includes(searchLower));
 
     const matchesStatus =
       filterStatus === 'all'

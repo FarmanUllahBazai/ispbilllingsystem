@@ -170,9 +170,10 @@ export const PackageModal: React.FC<PackageModalProps> = ({
       setName(packageData.name || '');
 
       // Parse speed string like "25 Mbps" if numerical downloadSpeed is not set
-      const parsedSpeed = parseInt(packageData.speed, 10);
-      const isGbps = packageData.speed.toLowerCase().includes('gbps');
-      const isKbps = packageData.speed.toLowerCase().includes('kbps');
+      const speedStr = String(packageData.speed || '');
+      const parsedSpeed = parseInt(speedStr, 10);
+      const isGbps = speedStr.toLowerCase().includes('gbps');
+      const isKbps = speedStr.toLowerCase().includes('kbps');
 
       setDownloadSpeed(packageData.downloadSpeed || (!isNaN(parsedSpeed) ? parsedSpeed : 25));
       setSpeedUnit(packageData.speedUnit as any || (isGbps ? 'Gbps' : isKbps ? 'Kbps' : 'Mbps'));

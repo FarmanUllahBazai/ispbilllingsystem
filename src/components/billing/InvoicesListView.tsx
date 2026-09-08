@@ -39,11 +39,11 @@ export const InvoicesListView: React.FC<InvoicesListViewProps> = ({
 
   const filteredInvoices = useMemo(() => {
     return (invoices || []).filter(inv => {
-      const search = searchTerm.toLowerCase();
+      const search = (searchTerm || '').toLowerCase();
       const matchesSearch =
         !searchTerm ||
-        inv.invoiceNumber.toLowerCase().includes(search) ||
-        inv.customerName.toLowerCase().includes(search) ||
+        (inv.invoiceNumber || '').toLowerCase().includes(search) ||
+        (inv.customerName || '').toLowerCase().includes(search) ||
         (inv.subscriberId && inv.subscriberId.toLowerCase().includes(search));
 
       const matchesStatus = statusFilter === 'all' || inv.status === statusFilter;

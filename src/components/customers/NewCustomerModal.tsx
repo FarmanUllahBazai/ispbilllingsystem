@@ -265,12 +265,21 @@ export const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
                 onChange={e => setSelectedPackageId(e.target.value)}
                 className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-slate-900 text-xs shadow-xs"
               >
-                {packages.map(p => (
-                  <option key={p.id} value={p.id}>
-                    {p.name} ({p.speed}) - {formatCurrency(p.monthlyPrice)} / Month
-                  </option>
-                ))}
+                {packages.length === 0 ? (
+                  <option value="">-- No packages created yet (Create a package first) --</option>
+                ) : (
+                  packages.map(p => (
+                    <option key={p.id} value={p.id}>
+                      {p.name} ({p.speed}) - {formatCurrency(p.monthlyPrice)} / Month
+                    </option>
+                  ))
+                )}
               </select>
+              {packages.length === 0 && (
+                <p className="text-[11px] text-amber-600 mt-1">
+                  Notice: No internet packages found. Please go to &quot;Packages &amp; Services&quot; to create your package plans first.
+                </p>
+              )}
             </div>
 
             <div>

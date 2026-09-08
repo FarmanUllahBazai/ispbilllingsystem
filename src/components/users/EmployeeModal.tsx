@@ -186,12 +186,12 @@ export const EmployeeModal: React.FC<EmployeeModalProps> = ({
       const isSuperAdminRole = roleId === 'role_super_admin';
 
       const payload: any = {
-        name: name.trim(),
-        username: username.trim().toLowerCase(),
-        email: email.trim().toLowerCase(),
-        phone: phone.trim(),
-        employeeId: employeeId.trim(),
-        jobTitle: jobTitle.trim(),
+        name: (name || '').trim(),
+        username: (username || '').trim().toLowerCase(),
+        email: (email || '').trim().toLowerCase(),
+        phone: (phone || '').trim(),
+        employeeId: (employeeId || '').trim(),
+        jobTitle: (jobTitle || '').trim(),
         roleId,
         roleName: selectedRoleObj ? selectedRoleObj.name : 'Custom Staff',
         status,
